@@ -4,8 +4,10 @@ import Footer from '../Footer/Footer'
 import NavbarMenu from '../NavbarMenu/NavbarMenu'
 import './AboutUs.css';
 const AboutUs = () => {
+
   return (
     <div>
+      
         <NavbarMenu />
         <Container className='about-us'>
             <h2 className='mb-1'>About Us</h2>

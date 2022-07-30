@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import "./NavbarMenu.css";
 // React-bootstrap components
 import {
@@ -69,6 +70,19 @@ const NavbarMenu = () => {
   const { state, dispatch } = useContext(Store);
   const { cart } = state;
   console.log(dispatch);
+
+  // LOGGED IN STATUS CHANGE NAVBAR ITEM FROM LOGIN TO USERNAME
+  let loggedIn = true;
+  let gettoken=localStorage.getItem('token')
+  if(gettoken==null){
+    loggedIn=false;
+  }
+  let navigave = useNavigate();
+  const Logout = ()=>{
+    localStorage.removeItem("token")
+    navigave("/")
+    setClick(false)
+  }
   return (
     <div>
       <Navbar
@@ -167,7 +181,17 @@ const NavbarMenu = () => {
               </Nav.Link>
 
               {/* Login Link */}
+              {loggedIn?
+              <NavDropdown                 
+              title={"Loggedin-user"}
+              id="collasible-nav-dropdown"
+              >
+                <NavDropdown.Item onClick={closeMobileMenu} eventKey={1}>My Account</NavDropdown.Item>
+                <NavDropdown.Item onClick={Logout} eventKey={2}>logout</NavDropdown.Item>
+              </NavDropdown>
+              :
               <Nav.Link onClick={closeMobileMenu && handleShow}>Login</Nav.Link>
+                }
             </Nav>
           </Navbar.Collapse>
 

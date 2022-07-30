@@ -41,6 +41,11 @@ function reducer(state, action) {
       Cookies.set("cartItems", JSON.stringify(cartItems));
       return { ...state, cart: { ...state.cart, cartItems } };
     }
+    case "SAVE_TOTAL_AMOUNT_WITH_COUPON_CODE":
+      return {
+        ...state,
+        cart: { ...state.cart, cartCheckOutDetails: action.payload },
+      };
     case "SAVE_SHIPPING_ADDRESS":
       return {
         ...state,

@@ -9,7 +9,11 @@ const SignUp = () => {
   const [Number ,setnumber] = useState("125637");
   
   console.log(setnumber)
+<<<<<<< HEAD
   const submitform = (e) => {
+=======
+  const handleSignUp =(e)=>{
+>>>>>>> 25a5a778a1439248f8c535becfcbc30e2f4081a2
     e.preventDefault();
     axios.post('https://golden.softgenics.in/api/users',{
       name:name,
@@ -26,7 +30,11 @@ const SignUp = () => {
   }
   return (
     <div className='signup'>
+<<<<<<< HEAD
       <Form onSubmit={(e) => submitform(e)}>
+=======
+      <Form onSubmit={(e)=>handleSignUp(e)}>
+>>>>>>> 25a5a778a1439248f8c535becfcbc30e2f4081a2
       <InputGroup className="mb-4 mt-3">
         <InputGroup.Text id="basic-addon1"><i className='fas fa-at' /></InputGroup.Text>
         <Form.Control

@@ -1,5 +1,7 @@
 import React from "react";
 import OwlCarousel from "react-owl-carousel";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import slider1 from "../Assets/images/slider1.jpeg";
@@ -11,23 +13,43 @@ import "./Benefits.css";
 import { Container, Row, Col } from "react-bootstrap";
 
 const Benefits = () => {
+  AOS.init();
   return (
     <Container className="benefits">
-      <h2 className="text-center mt-3 mb-3">Benefits Of Cold Pressed Oil</h2>
+      <h2
+        className="text-center mt-3 mb-3"
+        data-aos="zoom-in"
+        data-aos-duration="1000"
+      >
+        Benefits Of Cold Pressed Oil
+      </h2>
       <Row className="py-5">
         <Col lg={4} sm={12} className="col-left">
-          <p className="fw-bold title">Unrefined, No additives</p>
-          <p className="desc"> Oils are extracted using traditional wood press which involves
-             crushing the oil seeds at low temperatures without additives.</p>
-             <p className="fw-bold title">Cholesterol Free</p>
-             <p className="desc">100% Cholesterol Free, which means a healthier substitute for
-              refined oil & relief from cardiovascular problems.</p>
-             <p className="fw-bold title">Full of Nutrients</p>
-             <p className="desc">Cold press technique retains flavor, aroma, and nutritional values
-             of the seeds/nuts making these oils great for your health.</p>
+          <div data-aos="fade-right" data-aos-duration="1000">
+            <p className="fw-bold title">Unrefined, No additives</p>
+            <p className="desc">
+              {" "}
+              Oils are extracted using traditional wood press which involves
+              crushing the oil seeds at low temperatures without additives.
+            </p>
+          </div>
+          <div data-aos="fade-right" data-aos-duration="1000">
+            <p className="fw-bold title">Cholesterol Free</p>
+            <p className="desc">
+              100% Cholesterol Free, which means a healthier substitute for
+              refined oil & relief from cardiovascular problems.
+            </p>
+          </div>
+          <div data-aos="fade-right" data-aos-duration="1000">
+            <p className="fw-bold title">Full of Nutrients</p>
+            <p className="desc">
+              Cold press technique retains flavor, aroma, and nutritional values
+              of the seeds/nuts making these oils great for your health.
+            </p>
+          </div>
         </Col>
-        <Col lg={4} sm={12}>
-           <OwlCarousel
+        <Col lg={4} sm={12} data-aos="fade-up" data-aos-duration="1000">
+          <OwlCarousel
             className="owl-theme"
             items="1"
             autoplay
@@ -53,15 +75,30 @@ const Benefits = () => {
           </OwlCarousel>
         </Col>
         <Col lg={4} sm={12} className="col-right">
-        <p className="fw-bold title">100% RAW</p>
-        <p className="desc"> Pure fruits, nuts & seeds! That’s the only ingredient used in our
-             oils, that too in their very pure & raw form.</p>
-        <p className="fw-bold title">Packed with Antioxidants</p>
-        <p className="desc"> Organic antioxidants are a natural way of getting Vitamin C,
-               Vitamin E, and beta-carotene, good for anti-aging and skincare.</p>
-        <p className="fw-bold title">Zero Trans-Fat</p>
-        <p className="desc"> Cold-pressed essentially means there is no heating or chemical
-              processing, hence the oil is devoid of trans-fat.</p>
+          <div data-aos="fade-left" data-aos-duration="1000">
+            <p className="fw-bold title">100% RAW</p>
+            <p className="desc">
+              {" "}
+              Pure fruits, nuts & seeds! That’s the only ingredient used in our
+              oils, that too in their very pure & raw form.
+            </p>
+          </div>
+          <div data-aos="fade-left" data-aos-duration="1000">
+            <p className="fw-bold title">Packed with Antioxidants</p>
+            <p className="desc">
+              {" "}
+              Organic antioxidants are a natural way of getting Vitamin C,
+              Vitamin E, and beta-carotene, good for anti-aging and skincare.
+            </p>
+          </div>
+          <div data-aos="fade-left" data-aos-duration="1000">
+            <p className="fw-bold title">Zero Trans-Fat</p>
+            <p className="desc">
+              {" "}
+              Cold-pressed essentially means there is no heating or chemical
+              processing, hence the oil is devoid of trans-fat.
+            </p>
+          </div>
         </Col>
       </Row>
     </Container>
