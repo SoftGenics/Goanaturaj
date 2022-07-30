@@ -1,36 +1,69 @@
+import axios from 'axios';
 import React, {useState} from 'react'
 import { Form, InputGroup } from 'react-bootstrap'
 import './SignIn.css';
+import { useNavigate } from 'react-router-dom';
 const SignIn = () => {
-  const [username,setusername] =useState([]);
-  const [password,setpassword] =useState([]);
-  const handleLogin =()=>{
-    const token = localStorage.getItem("token")
-    let loggedIn = true
-    if(token ==  null){
-      loggedIn= false
+  let isLoggedIn=true;
+  const authToken = JSON.parse(localStorage.getItem("token"));
+    if(authToken===null){
+      isLoggedIn=false
     }
-    if(username==="prashant@gmail.com" && password==="12345"){
-      localStorage.setItem("token", "ihdhjkbcxvkfdjshlk")
-      if(loggedIn===true){
-        alert("success")
-      }
-    }
-    else{
-      alert("fail")
-    }
-  }
+  
+
+    const navigate = useNavigate();
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
+    const [validationErrors, setValidationErrors] = React.useState(false);
+    const [validationMessage, setValidationMessage] = React.useState("");
+  
+    const handleSubmit = () => {
+          
+      console.log("email",email)
+      axios
+        .post("https://golden.softgenics.in/api/userlogin", {email: email,
+        password: password}
+       )
+        .then((response) => {
+          if (response && response.status === 200) {
+          
+            console.log(response.data)
+            if (response.data) {
+              setValidationErrors(false);
+              const data = response.data;
+              console.log(data)
+              localStorage.setItem("token", JSON.stringify(data.token));
+              localStorage.setItem("id",(data.id));
+              localStorage.setItem("email",(data.email));
+              
+             navigate("/")
+            }
+          }
+        })
+        .catch((error) => {
+          if (
+            error.response &&
+            error.response.data &&
+            error.response.status
+          ) {
+            console.log(error.response.data.status);
+            setValidationErrors(true);
+            setValidationMessage("Invalid Email / Password");
+            
+          }
+        });
+    };
   return (
     <div className='signin'>
-        <Form onSubmit={handleLogin}>
+        <Form onSubmit={handleSubmit}>
         <InputGroup className="mb-4 mt-3">
         <InputGroup.Text id="basic-addon1"><i className='fas fa-user' /></InputGroup.Text>
         <Form.Control
           placeholder="Username/E-mail"
           aria-label="Username"
           aria-describedby="basic-addon1"
-          value={username}
-          onChange={(e)=>setusername(e.target.value)}
+          value={email}
+          onChange={(e)=>setEmail(e.target.value)}
         />
       </InputGroup>
       <InputGroup className="mb-3 ">
@@ -41,7 +74,7 @@ const SignIn = () => {
           type='password'
           aria-describedby="basic-addon2"
           value={password}
-          onChange={(e)=>setpassword(e.target.value)}
+          onChange={(e)=>setPassword(e.target.value)}
         />
       </InputGroup>
       <div className='d-flex'>
