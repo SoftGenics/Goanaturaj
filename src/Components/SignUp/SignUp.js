@@ -7,8 +7,10 @@ const SignUp = () => {
   const [name, setname]= useState([]);
   const [password, setpassword] = useState([]);
   const [Number ,setnumber] = useState("125637");
+  
   console.log(setnumber)
-  const handleSignUp =()=>{
+  const submitform = (e) => {
+    e.preventDefault();
     axios.post('https://golden.softgenics.in/api/users',{
       name:name,
       email:email,
@@ -24,7 +26,7 @@ const SignUp = () => {
   }
   return (
     <div className='signup'>
-      <Form onSubmit={handleSignUp}>
+      <Form onSubmit={(e) => submitform(e)}>
       <InputGroup className="mb-4 mt-3">
         <InputGroup.Text id="basic-addon1"><i className='fas fa-at' /></InputGroup.Text>
         <Form.Control
@@ -71,7 +73,7 @@ const SignUp = () => {
       <div className='d-flex'>
       <Form.Check label="I accept the" /> <p className='ms-1'> Terms of Service and Privacy Policy</p>
       </div>
-      <button className='btn-signin mt-3' onClick={handleSignUp}>Sign In</button>
+      <button type="submit" className='btn-signin mt-3'>Sign In</button>
       </Form>
     </div>
   )
