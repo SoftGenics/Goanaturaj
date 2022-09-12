@@ -63,13 +63,32 @@ route.post("/api/addUser", (req, res, next) => {
 
           try {
             //send mail
-            await client.sendEmail({
+            // await client.sendEmail({
+            //   From: process.env.USER_EMAIL,
+            //   To: email,
+            //   Subject: "Verify email for goa natural account",
+            //   HtmlBody: `<a>http://localhost:3000/verifyEmail?email=${email}&verificationLink=${verificationLink} </a>`,
+            //   //TextBody: `http://localhost:3000/verifyEmail?email=${email}&verificationLink=${verificationLink}`,
+            //   MessageStream: "outbound",
+            // });
+
+            client.sendEmailWithTemplate({
               From: process.env.USER_EMAIL,
               To: email,
-              Subject: "Verify email for goa natural account",
-              HtmlBody: `<a>http://localhost:3000/verifyEmail?email=${email}&verificationLink=${verificationLink} </a>`,
-              TextBody: `http://localhost:3000/verifyEmail?email=${email}&verificationLink=${verificationLink}`,
-              MessageStream: "outbound",
+              TemplateAlias: "welcome-1",
+              TemplateModel: {
+                product_url: "https://golden.softgenics.in",
+                product_name: "Goa Natural",
+                name: name,
+                action_url: `http://localhost:3000/verifyEmail?email=${email}&verificationLink=${verificationLink}`,
+                login_url: "https://golden.softgenics.in",
+                username: name,
+                support_email: "goanatural2222@gmail.com",
+                sender_name: "Goa natural",
+                company_name: "Goa natural",
+                company_address:
+                  "Plot 34, Kakoda Industrial Estate – Phase III, Kakoda, Curchorem, Goa, India 403706",
+              },
             });
 
             console.log("it has send");
