@@ -77,11 +77,11 @@ route.post("/api/addUser", (req, res, next) => {
               To: email,
               TemplateAlias: "welcome-1",
               TemplateModel: {
-                product_url: "https://golden.softgenics.in",
+                product_url: "https://goanatural.com",
                 product_name: "Goa Natural",
                 name: name,
-                action_url: `http://localhost:3000/verifyEmail?email=${email}&verificationLink=${verificationLink}`,
-                login_url: "https://golden.softgenics.in",
+                action_url: `https://goanatural.com/verifyEmail?email=${email}&verificationLink=${verificationLink}`,
+                login_url: "https://goanatural.com",
                 username: name,
                 support_email: "goanatural2222@gmail.com",
                 sender_name: "Goa natural",
@@ -181,6 +181,54 @@ route.post("/api/verifyEmail", (req, res, next) => {
 });
 
 route.post("/api/adduseraddress", controller2.useraddress);
+route.post("/api/sendaddress", (req, res, next) => {
+  const email = req.body.email;
+  const id = req.body.id;
+  var sql='SELECT *FROM address Where id=?';
+   db.query(sql,[id],function(err,result){
+       if(err) throw err;
+   res.send(result);});
+  try {
+    client.sendEmailWithTemplate({
+      From: process.env.USER_EMAIL,
+      To: email,
+      TemplateAlias: "welcome-1",
+      TemplateModel: {
+        product_url: "https://goanatural.com",
+        product_name: "product",
+        name: "niraj",
+        username: "mishra",
+        support_email: "goanatural2222@gmail.com",
+        sender_name: "Goa natural-1",
+        company_name: "Delivery Address",
+        company_address:"kankarbagh",
+      
+        
+
+       
+          
+      },
+    });
+
+    console.log("it has send");
+
+    res.send({
+      message:
+          "Verification email is send, Go to your email to verify account and check your spam folder, if you don't see the email",
+            });
+  }
+ catch (error) {
+  console.log("email not sent!");
+  console.log(error);
+  res.send({
+    message:
+      "The email that entered is wrong, not able to send verification link ",
+  });
+}
+
+});
+
+
 route.get("/api/useraddress", controller2.getaddress);
 
 module.exports = route;
