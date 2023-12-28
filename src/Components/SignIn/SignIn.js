@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, {useState} from 'react'
 import { Form, InputGroup } from 'react-bootstrap'
 import './SignIn.css';
-import { useNavigate } from 'react-router-dom';
+import {Navigate, useNavigate } from 'react-router-dom';
 const SignIn = () => {
   let isLoggedIn=true;
   const authToken = JSON.parse(localStorage.getItem("token"));
@@ -17,7 +17,8 @@ const SignIn = () => {
     const [validationErrors, setValidationErrors] = React.useState(false);
     const [validationMessage, setValidationMessage] = React.useState("");
   
-    const handleSubmit = () => {
+    const handleSignUp =(e)=>{
+      e.preventDefault();
           
       console.log("email",email)
       axios
@@ -33,10 +34,10 @@ const SignIn = () => {
               const data = response.data;
               console.log(data)
               localStorage.setItem("token", JSON.stringify(data.token));
-              localStorage.setItem("id",(data.id));
-              localStorage.setItem("email",(data.email));
+              localStorage.setItem("id",JSON.stringify(data.id));
+              localStorage.setItem("name",JSON.stringify(data.name));
               
-             navigate("/")
+             navigate("/products")
             }
           }
         })
@@ -54,8 +55,10 @@ const SignIn = () => {
         });
     };
   return (
+    
     <div className='signin'>
-        <Form onSubmit={handleSubmit}>
+      {isLoggedIn ? <Navigate to="/" />: <></>}  
+        <Form onSubmit={(e)=>handleSignUp(e)}>
         <InputGroup className="mb-4 mt-3">
         <InputGroup.Text id="basic-addon1"><i className='fas fa-user' /></InputGroup.Text>
         <Form.Control
@@ -81,7 +84,7 @@ const SignIn = () => {
       <Form.Check label="Remember Me" />
       <p className='ms-auto'>Forgot password ?</p>
       </div>
-      <button className='btn-signin mt-3'>Sign In</button>
+      <button className='btn-signin mt-3' type='submit'>Sign In</button>
       </Form>
     </div>
   )

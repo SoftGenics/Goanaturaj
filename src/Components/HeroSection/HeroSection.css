@@ -117,3 +117,8 @@ background-repeat:center center/cover no-repeat;
             font-size: 25px;
         }
      }
+
+     .marg{
+        margin-left: 500;
+        display:flex
+             }

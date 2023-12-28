@@ -73,8 +73,9 @@ const NavbarMenu = () => {
 
   // LOGGED IN STATUS CHANGE NAVBAR ITEM FROM LOGIN TO USERNAME
   let loggedIn = true;
-  let gettoken=localStorage.getItem('token')
-  if(gettoken==null){
+  const authToken = JSON.parse(localStorage.getItem("token"));
+  const name = JSON.parse(localStorage.getItem("name"));
+  if(authToken==null){
     loggedIn=false;
   }
   let navigave = useNavigate();
@@ -183,7 +184,7 @@ const NavbarMenu = () => {
               {/* Login Link */}
               {loggedIn?
               <NavDropdown                 
-              title={"Loggedin-user"}
+              title={name}
               id="collasible-nav-dropdown"
               >
                 <NavDropdown.Item onClick={closeMobileMenu} eventKey={1}>My Account</NavDropdown.Item>
